@@ -15,12 +15,14 @@ public:
     int get_minute();
     int get_second();
     // setters
-    void set_hour(int h) { segundos += (h >= 0 && h < 24) ? h * 3600 : 0; }
-    void set_minutes(int m) { segundos += (m >= 0 && m < 60) ? m * 60 : 0; }
-    void set_seconds(int s) { segundos += (s >= 0 && s < 60) ? s : 0; }
+    void set_hour(int h) { hora = (h >= 0 && h < 24) ? h : 0; }
+    void set_minutes(int m) { minuto = (m >= 0 && m < 60) ? m : 0; }
+    void set_seconds(int s) { segundo = (s >= 0 && s < 60) ? s : 0; }
 
 private:
-    int segundos;
+int hora;
+int minuto;
+    int segundo;
 };
 
 void horario::sethorario(int h, int m, int s)
@@ -47,15 +49,15 @@ void horario::printStandard()
 
 int horario::get_hour()
 {
-    return segundos/3600;
+    return hora;
 }
 int horario::get_minute()
 {
-    return segundos/60;
+    return minuto;
 }
 int horario::get_second()
 {
-    return segundos;
+    return segundo;
 }
 
 int main()
@@ -63,9 +65,6 @@ int main()
     horario acordar(7,30,00);
     horario comer(11, 30);
     horario dormir;
-
-    int horario_comer;
-    cin>>horario_comer;
 
     cout << "horario de acordar: ";
     acordar.printStandard();
