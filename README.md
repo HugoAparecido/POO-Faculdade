@@ -3,7 +3,7 @@
 
 ## Rodar o programa
 ```
-g++ main.cpp -o hello
+g++ -std=c++11 -o hello main.cpp
 ```
 
 ```
