@@ -2,6 +2,7 @@
 // Created by hugoaparecido on 8/25/25.
 //
 #include <iostream>
+#include "Livro.h"
 
 using namespace std;
 
@@ -37,6 +38,10 @@ int main()
     inititime(&horario_atual, 12, 30, 59);
     PrintUniversal(horario_atual);
     PrintStandard(horario_atual);
+
+    Livro livro = Livro();
+    livro.setTitulo("O Senhor dos Aneis");
+    livro.imprimir();
 
     return 0;
 }
