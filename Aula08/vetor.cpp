@@ -17,14 +17,14 @@ public:
     ~vetor();
 };
 
-vetor::vetor(int tamanho_inicial)
+vetor::vetor(int tamanho)
 {
-    if (tamanho_inicial <= 0)
-        tamanho = 10;
+    if (tamanho <= 0)
+        this->tamanho = 10;
     else
-        tamanho = tamanho_inicial;
-    ptrvetor = new int[tamanho];
-    for (int i = 0; i < tamanho; i++)
+        this->tamanho = tamanho;
+    ptrvetor = new int[this->tamanho];
+    for (int i = 0; i < this->tamanho; i++)
         ptrvetor[i] = 0;
 }
 
@@ -55,7 +55,7 @@ bool vetor::get_vetor(int posicao, int &valor) const
 
 int vetor::get_tamanho() const
 {
-    return tamanho;
+    return this->tamanho;
 }
 
 void vetor::print() const
