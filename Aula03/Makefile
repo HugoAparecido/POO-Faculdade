@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -g
-CPP_SRCS = horario.cpp
-CPP_EXE = horario # New executable name
+CPP_SRCS = exercicio1.cpp Livro.cpp
+CPP_EXE = exercicio1 # New executable name
 
 # Alvo padrão
 all: run_cpp
@@ -14,7 +14,7 @@ $(CPP_EXE): $(CPP_SRCS)
 	$(CC) $(CFLAGS) -o $(CPP_EXE) $(CPP_SRCS)
 
 # Novo alvo para rodar o executável
-run_cpp: $(CPP_EXE) $(TXT)
+run_cpp: $(CPP_EXE)
 	./$(CPP_EXE)
 
 # Limpeza
