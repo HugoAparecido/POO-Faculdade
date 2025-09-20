@@ -20,8 +20,8 @@ public:
     void set_seconds(int s) { segundo = (s >= 0 && s < 60) ? s : 0; }
 
 private:
-int hora;
-int minuto;
+    int hora;
+    int minuto;
     int segundo;
 };
 
@@ -62,7 +62,7 @@ int horario::get_second()
 
 int main()
 {
-    horario acordar(7,30,00);
+    horario acordar(7, 30, 00);
     horario comer(11, 30);
     horario dormir;
 
@@ -74,10 +74,11 @@ int main()
     dormir.printStandard();
 
     comer.set_hour(13);
-    cout << endl << "horario de comer modifiicado: ";
+    cout << endl
+         << "horario de comer modifiicado: ";
     comer.printStandard();
 
-    cout<<"Dormir apos " << dormir.get_hour()<< " horas"<<endl;
+    cout << "Dormir apos " << dormir.get_hour() << " horas" << endl;
     system("PAUSE");
 
     return 0;
