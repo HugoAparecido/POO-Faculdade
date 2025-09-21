@@ -1,38 +1,7 @@
 #include <iostream>
+#include "vendedor.h"
 
 using namespace std;
-
-class vendedor
-{
-
-public:
-    vendedor(int cnpj, string nome, string loja_afiliada, double salario, int numero_vendas); // constructor
-    // metodos set
-    void SetCNPJ(int cnpj);
-    void SetNome(string nome);
-    void SetLoja_afiliada(string loja_afiliada);
-    void SetSalario(double salario);
-    void SetRenda(int numero_vendas, double salario);
-    void SetNumeroVendas(int numero_vendas);
-    // metodos get
-    int GetCNPJ() const;
-    string GetNome() const;
-    string GetLoja_afiliada() const;
-    double GetRenda() const;
-    double GetSalario() const;
-    int GetNumeroVendas() const;
-
-private:
-    int CNPJ;
-    int Numero_vendas;
-    string Nome;
-    string Loja_afiliada;
-    double Renda;
-    double Salario;
-    double comissao;
-    bool ValidaCNPJ(int cnpj);
-    double Comissao(int numero_vendas, double salario);
-};
 
 vendedor::vendedor(int cnpj, string nome, string loja_afiliada, double salario, int numero_vendas)
 {
@@ -121,18 +90,4 @@ double vendedor::GetSalario() const
 double vendedor::GetRenda() const
 {
     return Renda;
-}
-
-int main()
-{
-    vendedor vendedor1(123456789, "joao da silva", "loja A", 2000.00, 135);
-    cout << "Salario: " << vendedor1.GetSalario() << endl;
-    cout << "Numero de vendas: " << vendedor1.GetNumeroVendas() << endl;
-    cout << "Renda com comissao: " << vendedor1.GetRenda() << endl;
-
-    const vendedor vendedor2(987654321, "maria de souza", "loja B", 3000.00, 50);
-    cout << "Salario: " << vendedor2.GetSalario() << endl;
-    cout << "Renda: " << vendedor2.GetRenda() << endl;
-
-    return 0;
 }
