@@ -1,34 +1,7 @@
 #include <iostream>
+#include "vendedor.h"
 
 using namespace std;
-
-class Vendedor
-{
-public:
-    Vendedor(int CNPJ, string Nome, string Loja_afiliada, double Renda);
-    // Setters
-    void SetCNPJ(int cnpj);
-    void SetNome(string nome);
-    void SetLoja_afiliada(string loja_afiliada);
-    void SetRenda(double renda);
-    void SetNumeroVendas(int numero_vendas);
-    // Getters
-    int GetCNPJ();
-    string GetNome();
-    string GetLoja_afiliada();
-    double GetRenda();
-    int GetNumeroVendas();
-    void Venda(int numero_vendas, double renda);
-
-private:
-    int CNPJ;
-    string Nome;
-    string Loja_afiliada;
-    double Renda;
-    int Numero_vendas;
-    bool ValidaCNPJ(int cnpj);
-    double Comissao(int numero_vendas, double renda);
-};
 
 Vendedor::Vendedor(int cnpj, string nome, string loja_afiliada, double renda)
 {
@@ -111,16 +84,4 @@ void Vendedor::Venda(int numero_vendas, double renda)
 {
     SetNumeroVendas(numero_vendas);
     SetRenda(Comissao(numero_vendas, renda));
-}
-
-int main()
-{
-    Vendedor vendedor1(123456789, "Joao Silva", "Loja A", 2000.0);
-    vendedor1.Venda(150, vendedor1.GetRenda());
-    cout << "CNPJ: " << vendedor1.GetCNPJ() << endl;
-    cout << "Nome: " << vendedor1.GetNome() << endl;
-    cout << "Loja Afiliada: " << vendedor1.GetLoja_afiliada() << endl;
-    cout << "Numero de Vendas: " << vendedor1.GetNumeroVendas() << endl;
-    cout << "Renda com Comissao: " << vendedor1.GetRenda() << endl;
-    return 0;
 }
