@@ -4,14 +4,14 @@ unsigned int Pedido::cont_itens = 0;
 unsigned int Pedido::cont_pedidos = 0;
 unsigned int Pedido::prox_id = 1;
 
-Pedido::Pedido(string nome = "desconhecido", int qtdItens = 0) : id(prox_id++)
+Pedido::Pedido(string nome, int qtdItens) : id(prox_id++)
 {
     this->nome = nome;
     nmroItens = (qtdItens > 0) ? qtdItens : 0;
     ptrItens = new string[nmroItens];
     cont_pedidos++;
     cont_itens += qtdItens;
-    for (int i = 0; i < this->nmroItens; i++)
+    for (unsigned int i = 0; i < this->nmroItens; i++)
         ptrItens[i] = "---";
 }
 
@@ -30,7 +30,7 @@ int Pedido::GetNmroItens() const
     return nmroItens;
 }
 
-bool Pedido::SetItem(int pos, string val)
+bool Pedido::SetItem(unsigned int pos, string val)
 {
     if (pos >= 0 && pos < nmroItens)
     {
@@ -40,7 +40,7 @@ bool Pedido::SetItem(int pos, string val)
     return false;
 }
 
-bool Pedido::GetItem(int pos, string &val) const
+bool Pedido::GetItem(unsigned int pos, string &val) const
 {
     if (pos >= 0 && pos < nmroItens)
     {
@@ -64,5 +64,5 @@ Pedido::~Pedido()
 {
     cont_itens -= nmroItens;
     cont_pedidos--;
-    delete ptrItens;
+    delete[] ptrItens;
 }

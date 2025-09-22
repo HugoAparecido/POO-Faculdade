@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -g
 CPP_SRCS = main.cpp Pedido.cpp
-CPP_EXE = vendedor # New executable name
+CPP_EXE = pedido # New executable name
 
 # Alvo padrão
 all: run_cpp
