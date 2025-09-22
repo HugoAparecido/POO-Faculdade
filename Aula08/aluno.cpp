@@ -1,41 +1,95 @@
+#include "aluno.h"
 #include <iostream>
+#include <vector>
 
-using namespace std;
+int Aluno::contador = 0;
 
-class Aluno
+Aluno::Aluno(string nome, int qtdeNotas, double *notas) : RA(++Aluno::contador)
 {
-public:
-    Aluno(string nome, int qtdeNotas, double *notas);
-    ~Aluno();
-    void SetNome(string nome);
-    string GetNome() const;
-    int GetRA() const;
-    bool SetNotas(int qtdeNotas, double *notas);
-    bool GetNota(double *notas) const;
-    void SetQtdNotas(int qtdeNotas);
-    int GetQtdNotas(int pos, double &val) const;
-    static void IncrementarContador();
-    void ImprimeTodasNotas() const;
+    // 1. Aloca a memória para as notas primeiro
+    this->SetQtdNotas(qtdeNotas); 
 
-private:
-    static int contador;
-    const int RA;
-    string nome;
-    int qtdeNotas;
-    double *notas;
-}
-
-Aluno::Aluno(string nome, int qtdeNotas, double *notas):RA(++Aluno::contador){
+    // 2. Agora o 'this->notas' é um ponteiro válido, e você pode usá-lo com segurança
     this->SetNome(nome);
-    this->SetQtdNotas(qtdeNotas);
-    this->SetNotas(qtdeNotas);
+    this->SetNotas(qtdeNotas, notas); 
 }
 
-Aluno::~Aluno(){
-    if(this->notas != NULL)
-    delete this->notas;
-}
-
-int main()
+void Aluno::SetNome(string nome)
 {
+    this->nome = nome;
+}
+
+string Aluno::GetNome() const
+{
+    return nome;
+}
+
+int Aluno::GetRA() const
+{
+    return RA;
+}
+
+bool Aluno::SetNotas(int qtdeNotas, double *notas)
+{
+    if (qtdeNotas >= 0 && notas != NULL)
+    {
+        for (int i = 0; i < qtdeNotas; i++)
+            this->notas[i] = notas[i];
+        return true;
+    }
+    return false;
+}
+
+bool Aluno::GetNotas(double *notas) const
+{
+    if (notas != NULL)
+    {
+        for (int i = 0; i < this->qtdeNotas; i++)
+            notas[i] = this->notas[i];
+        return true;
+    }
+    return false;
+}
+
+bool Aluno::GetNota(int pos, double &val) const
+{
+    if (pos >= 0 && pos < this->qtdeNotas)
+    {
+        val = this->notas[pos];
+        return true;
+    }
+    return false;
+}
+
+void Aluno::SetQtdNotas(int qtdeNotas)
+{
+    if (qtdeNotas >= 0)
+    {
+        this->qtdeNotas = qtdeNotas;
+        if (this->notas != NULL)
+            delete[] this->notas;
+        this->notas = new double[qtdeNotas];
+    }
+}
+
+int Aluno::GetQtdNotas() const
+{
+    return this->qtdeNotas;
+}
+
+void Aluno::IncrementarContador()
+{
+    Aluno::contador++;
+}
+
+void Aluno::ImprimeTodasNotas() const
+{
+    for (int i = 0; i < this->qtdeNotas; i++)
+        cout << "Nota " << i << ": " << this->notas[i] << endl;
+}
+
+Aluno::~Aluno()
+{
+    if (this->notas != NULL)
+        delete[] this->notas;
 }
