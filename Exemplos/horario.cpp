@@ -4,30 +4,26 @@
 class horario
 {
 
-    int hora, minuto, segundo;
-
 public:
-    horario();
-    horario(int, int, int);
+    horario(int h = 0, int m = 0, int s = 0);
 
     // metodos set
-    void set_hora(int);
-    void set_minuto(int);
-    void set_segundo(int);
+    void set_hora(int h);
+    void set_minuto(int m);
+    void set_segundo(int s);
 
     // metodos get
-    int get_hora();
-    int get_minuto();
-    int get_segundo();
-    void imprime();
+    int get_hora() const;
+    int get_minuto() const;
+    int get_segundo() const;
+
+    // auxiliar
+    void imprime() const;
+
+private:
+    int hora, minuto, segundo;
 };
 
-horario::horario()
-{
-    hora = 0;
-    minuto = 0;
-    segundo = 0;
-}
 horario::horario(int h, int m, int s)
 {
     set_hora(h);
@@ -50,22 +46,22 @@ void horario::set_segundo(int s)
     segundo = (s >= 0 && s < 24) ? s : 0;
 }
 
-int horario::get_hora()
+int horario::get_hora() const
 {
     return hora;
 }
 
-int horario::get_minuto()
+int horario::get_minuto() const
 {
     return minuto;
 }
 
-int horario::get_segundo()
+int horario::get_segundo() const
 {
     return segundo;
 }
 
-void horario::imprime()
+void horario::imprime() const
 {
     std::cout << std::setfill('0') << std::setw(2) << hora << ":"
               << std::setw(2) << minuto << ":"
@@ -76,19 +72,27 @@ int main()
 {
 
     horario comer(12, 0, 0);
-    horario dormir(30, 90, 75); // hor�rio inv�lido
+    horario dormir(45, 70, 80);
+    const horario meiodia(12, 0, 0);
 
-    std::cout << "horario de comer 1: ";
+    std::cout << "horario de comer: ";
     comer.imprime();
 
-    comer.set_hora(23);
-    comer.set_minuto(15);
-    comer.set_segundo(30);
+    std::cout << "meio dia: ";
+    meiodia.imprime();
 
-    std::cout << "horario de comer modificado: ";
-    comer.imprime();
-
+    std::cout << "horario de dormir: ";
     dormir.imprime();
+
+    // alterando horario de dormir
+    dormir.set_hora(23);
+    dormir.set_minuto(15);
+
+    std::cout << "horario de dormir modificado: ";
+    dormir.imprime();
+
+    // altera��o de objeto constante: ERRO
+    // meiodia.set_hora(14);
 
     system("PAUSE");
 }
