@@ -87,7 +87,6 @@ void AC::mostra()
         cout << "AC modelo " << getModelo() << " Ligado, Temperatura: " << getTemp() << " Velocidade: " << getVelocidade() << endl;
     }
     else
-
     {
         cout << "AC modelo " << modelo << " Desligado" << endl;
     }

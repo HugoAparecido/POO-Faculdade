@@ -38,12 +38,12 @@ void horario::set_hora(int h)
 
 void horario::set_minuto(int m)
 {
-    minuto = (m >= 0 && m < 59) ? m : 0;
+    minuto = (m >= 0 && m < 60) ? m : 0;
 }
 
 void horario::set_segundo(int s)
 {
-    segundo = (s >= 0 && s < 24) ? s : 0;
+    segundo = (s >= 0 && s < 60) ? s : 0;
 }
 
 int horario::get_hora() const
