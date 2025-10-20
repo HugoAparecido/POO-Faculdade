@@ -25,6 +25,10 @@ public:
     int GetNum() const;
     int GetDen() const;
     void Mostrar();
+    Fracao operator+(Fracao f1);
+    Fracao operator-(Fracao f1);
+    Fracao operator+(int num);
+    Fracao operator-(int num);
     Fracao Mult(Fracao f2) const;
     Fracao operator*(int num) const
     {
@@ -96,6 +100,36 @@ int Fracao::GetDen() const
 void Fracao::Mostrar()
 {
     cout << GetNum() << "/" << GetDen() << endl;
+}
+
+Fracao operator+(Fracao f1) 
+{  
+    f1.den = this->den * f1.den;
+    f1.num = this->num * f1.den + this->den * f1.num;
+    return f1;
+}
+
+Fracao operator-(Fracao f1) 
+{
+    f1.den = this->den * f1.den;
+    f1.num = this->num * f1.den - this->den * f1.num;
+    return f1;
+}
+
+Fracao operator+(int numero) 
+{
+    Fracao ftemp();
+    ftemp.den = this->den;
+    ftemp.num = numero * ftemp.den + this->num;
+    return ftemp;
+}
+
+Fracao operator-(int numero) 
+{
+    Fracao ftemp();
+    ftemp.den = this->den;
+    ftemp.num = numero * ftemp.den + this->num;
+    return ftemp;
 }
 
 Fracao Fracao::Mult(Fracao f2) const
