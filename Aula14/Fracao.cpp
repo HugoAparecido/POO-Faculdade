@@ -5,37 +5,22 @@ using namespace std;
 class Fracao
 {
 public:
-    Fracao()
-    {
-        SetNum(0);
-        SetDen(1);
-    }
-    Fracao(int n, int d)
-    {
-        SetNum(n);
-        SetDen(d);
-    }
-    Fracao(int n)
-    {
-        SetNum(n);
-        SetDen(1);
-    }
+    Fracao();
+    Fracao(int n, int d);
+    Fracao(int n);
     void SetNum(int n);
     void SetDen(int d);
     int GetNum() const;
     int GetDen() const;
     void Mostrar();
     Fracao Mult(Fracao f2) const;
-    Fracao operator*(int num) const
-    {
-        return Fracao(GetNum() * num, GetDen());
-    };
-    // friend Fracao operator++(Fracao o1);
-    // friend Fracao operator++(Fracao o1);
+    Fracao operator*(int num) const;
     Fracao operator++(int);
     Fracao &operator++();
     bool operator>(Fracao f2) const;
     friend bool operator<(Fracao fe, Fracao fd);
+    bool operator<=(Fracao f2) const;
+    bool operator>=(Fracao f2) const;
     friend ostream &operator<<(ostream &, const Fracao &);
     friend istream &operator>>(istream &, Fracao &);
 
@@ -44,33 +29,22 @@ private:
     int den;
 };
 
-/*Fracao Fracao::operator++(Fracao &f, int)
+Fracao::Fracao()
 {
-    Fracao temp(f);
-    f.num += f.den;
-    return temp;
-}
-*/
-Fracao Fracao::operator++(int)
-{
-    Fracao temp(*this);
-    num += den;
-    return temp;
+    SetNum(0);
+    SetDen(1);
 }
 
-/*
-
-Fracao& Fracao::operator++(fracao& f){
-    f.num += f.den;
-    return f;
+Fracao::Fracao(int n, int d)
+{
+    SetNum(n);
+    SetDen(d);
 }
 
-*/
-
-Fracao &Fracao::operator++()
+Fracao::Fracao(int n)
 {
-    num += den;
-    return *this;
+    SetNum(n);
+    SetDen(1);
 }
 
 void Fracao::SetNum(int n)
@@ -108,11 +82,23 @@ Fracao operator*(Fracao o1, Fracao o2)
     return Fracao(o1.GetNum() * o2.GetNum(), o1.GetDen() * o2.GetDen());
 }
 
-/*Fracao operator*(Fracao o1, int num)
+Fracao Fracao::operator*(int num) const
 {
-    return Fracao(o1.GetNum() * num, o1.GetDen());
-}*/
+    return Fracao(GetNum() * num, GetDen());
+};
 
+Fracao Fracao::operator++(int)
+{
+    Fracao temp(*this);
+    num += den;
+    return temp;
+}
+
+Fracao &Fracao::operator++()
+{
+    num += den;
+    return *this;
+}
 Fracao operator*(int num, Fracao o1)
 {
     return o1 * num;

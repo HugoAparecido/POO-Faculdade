@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wall -g
-CPP_SRCS = main.cpp Roteiro.cpp
+CPP_SRCS = Fracao.cpp
 CPP_EXE = pedido # New executable name
 
 # Alvo padrão
