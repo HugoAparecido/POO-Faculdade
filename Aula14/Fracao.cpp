@@ -21,6 +21,12 @@ public:
     friend bool operator<(Fracao fe, Fracao fd);
     bool operator<=(Fracao f2) const;
     bool operator>=(Fracao f2) const;
+    bool operator==(Fracao f2) const;
+    bool operator!=(Fracao f2) const;
+    bool operator<=(int num) const;
+    bool operator>=(int num) const;
+    bool operator==(int num) const;
+    bool operator!=(int num) const;
     friend ostream &operator<<(ostream &, const Fracao &);
     friend istream &operator>>(istream &, Fracao &);
 
