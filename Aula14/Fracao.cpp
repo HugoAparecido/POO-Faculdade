@@ -20,16 +20,27 @@ public:
     Fracao operator-(const Fracao &f2) const;
     Fracao operator+(int num) const;
     Fracao operator-(int num) const;
+    friend Fracao operator+(int num, const Fracao &o1);
+    friend Fracao operator-(int num, const Fracao &o1);
+
     Fracao operator*(const Fracao &f2) const;
     Fracao operator*(int num) const;
+    friend Fracao operator*(int num, const Fracao &o1);
 
     Fracao operator++(int);
     Fracao &operator++();
 
+    Fracao operator--(int);
+    Fracao &operator--();
+
     bool operator>(const Fracao &f2) const;
+    bool operator>(int num) const;
+    friend bool operator>(int num, const Fracao &o1);
+
+    bool operator>=(const Fracao &f2) const;
 
     friend bool operator<(const Fracao &fe, const Fracao &fd);
-    friend Fracao operator*(int num, const Fracao &o1);
+
     friend ostream &operator<<(ostream &output, const Fracao &fracao);
     friend istream &operator>>(istream &input, Fracao &fracao);
 
@@ -141,9 +152,47 @@ Fracao Fracao::operator++(int)
     return temp;
 }
 
+Fracao Fracao::operator--(int)
+{
+    Fracao temp(*this);
+    num -= den;
+    return temp;
+}
+
+Fracao &Fracao::operator--()
+{
+    num -= den;
+    return *this;
+}
+
+Fracao operator+(int num, const Fracao &o1)
+{
+    return o1 + num;
+}
+
+Fracao operator-(int num, const Fracao &o1)
+{
+    return Fracao(num) - o1;
+}
+
 bool Fracao::operator>(const Fracao &f2) const
 {
     return (this->GetNum() * f2.GetDen()) > (this->GetDen() * f2.GetNum());
+}
+
+bool Fracao::operator>(int num) const
+{
+    return *this > Fracao(num);
+}
+
+bool operator>(int num, const Fracao &o1)
+{
+    return Fracao(num) > o1;
+}
+
+bool Fracao::operator>=(const Fracao &f2) const
+{
+    return (this->GetNum() * f2.GetDen()) >= (this->GetDen() * f2.GetNum());
 }
 
 bool operator<(const Fracao &fe, const Fracao &fd)
