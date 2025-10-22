@@ -38,8 +38,24 @@ public:
     friend bool operator>(int num, const Fracao &o1);
 
     bool operator>=(const Fracao &f2) const;
+    bool operator>=(int num) const;
+    friend bool operator>=(int num, const Fracao &o1);
 
     friend bool operator<(const Fracao &fe, const Fracao &fd);
+    bool operator<(int num) const;
+    friend bool operator<(int num, const Fracao &o1);
+
+    bool operator<=(const Fracao &f2) const;
+    bool operator<=(int num) const;
+    friend bool operator<=(int num, const Fracao &o1);
+
+    bool operator==(const Fracao &f2) const;
+    bool operator==(int num) const;
+    friend bool operator==(int num, const Fracao &o1);
+
+    bool operator!=(const Fracao &f2) const;
+    bool operator!=(int num) const;
+    friend bool operator!=(int num, const Fracao &o1);
 
     friend ostream &operator<<(ostream &output, const Fracao &fracao);
     friend istream &operator>>(istream &input, Fracao &fracao);
@@ -175,6 +191,11 @@ Fracao operator-(int num, const Fracao &o1)
     return Fracao(num) - o1;
 }
 
+Fracao operator*(int num, const Fracao &o1)
+{
+    return o1 * num;
+}
+
 bool Fracao::operator>(const Fracao &f2) const
 {
     return (this->GetNum() * f2.GetDen()) > (this->GetDen() * f2.GetNum());
@@ -195,14 +216,74 @@ bool Fracao::operator>=(const Fracao &f2) const
     return (this->GetNum() * f2.GetDen()) >= (this->GetDen() * f2.GetNum());
 }
 
+bool Fracao::operator>=(int num) const
+{
+    return *this >= Fracao(num);
+}
+
+bool operator>=(int num, const Fracao &o1)
+{
+    return Fracao(num) >= o1;
+}
+
 bool operator<(const Fracao &fe, const Fracao &fd)
 {
     return (fe.GetNum() * fd.GetDen()) < (fe.GetDen() * fd.GetNum());
 }
 
-Fracao operator*(int num, const Fracao &o1)
+bool Fracao::operator<(int num) const
 {
-    return o1 * num;
+    return *this < Fracao(num);
+}
+
+bool operator<(int num, const Fracao &o1)
+{
+    return Fracao(num) < o1;
+}
+
+bool Fracao::operator<=(const Fracao &f2) const
+{
+    return (this->GetNum() * f2.GetDen()) <= (this->GetDen() * f2.GetNum());
+}
+
+bool Fracao::operator<=(int num) const
+{
+    return *this <= Fracao(num);
+}
+
+bool operator<=(int num, const Fracao &o1)
+{
+    return Fracao(num) <= o1;
+}
+
+bool Fracao::operator==(const Fracao &f2) const
+{
+    return (this->GetNum() * f2.GetDen()) == (this->GetDen() * f2.GetNum());
+}
+
+bool Fracao::operator==(int num) const
+{
+    return *this == Fracao(num);
+}
+
+bool operator==(int num, const Fracao &o1)
+{
+    return Fracao(num) == o1;
+}
+
+bool Fracao::operator!=(const Fracao &f2) const
+{
+    return !(*this == f2);
+}
+
+bool Fracao::operator!=(int num) const
+{
+    return !(*this == num);
+}
+
+bool operator!=(int num, const Fracao &o1)
+{
+    return !(Fracao(num) == o1);
 }
 
 ostream &operator<<(ostream &output, const Fracao &fracao)
@@ -261,9 +342,20 @@ int main()
 
     Fracao f_maior(3, 5);
     Fracao f_menor(1, 2);
+    Fracao f_igual(6, 10);
+    int i = 1;
 
-    cout << (f_maior > f_menor ? "Verdadeiro" : "Falso") << endl;
-    cout << (f_menor < f_maior ? "Verdadeiro" : "Falso") << endl;
+    // Testes de comparação adicionais para cobrir todos os operadores
+    cout << "(3/5 > 1/2)? " << (f_maior > f_menor ? "Verdadeiro" : "Falso") << endl;
+    cout << "(1/2 < 3/5)? " << (f_menor < f_maior ? "Verdadeiro" : "Falso") << endl;
+    cout << "(3/5 >= 1/2)? " << (f_maior >= f_menor ? "Verdadeiro" : "Falso") << endl;
+    cout << "(3/5 >= 6/10)? " << (f_maior >= f_igual ? "Verdadeiro" : "Falso") << endl;
+    cout << "(3/5 == 6/10)? " << (f_maior == f_igual ? "Verdadeiro" : "Falso") << endl;
+    cout << "(3/5 != 1/2)? " << (f_maior != f_menor ? "Verdadeiro" : "Falso") << endl;
+    cout << "(3/5 <= 1)? " << (f_maior <= i ? "Verdadeiro" : "Falso") << endl;
+    cout << "(1 > 1/2)? " << (i > f_menor ? "Verdadeiro" : "Falso") << endl;
+    cout << "(1 >= 1/2)? " << (i >= f_menor ? "Verdadeiro" : "Falso") << endl;
+    cout << "(0 < 1/2)? " << (0 < f_menor ? "Verdadeiro" : "Falso") << endl;
     cout << endl;
 
     Fracao f_inc(5, 4);
@@ -274,6 +366,14 @@ int main()
     Fracao pos_inc = f_inc++;
     cout << f_inc << endl;
     cout << pos_inc << endl;
+    cout << endl;
+
+    Fracao f_dec(5, 4);
+    Fracao pre_dec = --f_dec;
+    cout << f_dec << endl;
+    Fracao pos_dec = f_dec--;
+    cout << f_dec << endl;
+    cout << pos_dec << endl;
     cout << endl;
 
     Fracao f_io;
