@@ -5,76 +5,56 @@ using namespace std;
 class Fracao
 {
 public:
-    Fracao()
-    {
-        SetNum(0);
-        SetDen(1);
-    }
-    Fracao(int n, int d)
-    {
-        SetNum(n);
-        SetDen(d);
-    }
-    Fracao(int n)
-    {
-        SetNum(n);
-        SetDen(1);
-    }
+    Fracao();
+    Fracao(int n, int d);
+    Fracao(int n);
+
     void SetNum(int n);
     void SetDen(int d);
     int GetNum() const;
     int GetDen() const;
-    void Mostrar();
-    Fracao operator+(Fracao f1);
-    Fracao operator-(Fracao f1);
-    Fracao operator+(int num);
-    Fracao operator-(int num);
-    Fracao Mult(Fracao f2) const;
-    Fracao operator*(int num) const
-    {
-        return Fracao(GetNum() * num, GetDen());
-    };
-    // friend Fracao operator++(Fracao o1);
-    // friend Fracao operator++(Fracao o1);
+
+    void Mostrar() const;
+
+    Fracao operator+(const Fracao &f2) const;
+    Fracao operator-(const Fracao &f2) const;
+    Fracao operator+(int num) const;
+    Fracao operator-(int num) const;
+    Fracao operator*(const Fracao &f2) const;
+    Fracao operator*(int num) const;
+
     Fracao operator++(int);
     Fracao &operator++();
-    bool operator>(Fracao f2) const;
-    friend bool operator<(Fracao fe, Fracao fd);
-    friend ostream &operator<<(ostream &, const Fracao &);
-    friend istream &operator>>(istream &, Fracao &);
+
+    bool operator>(const Fracao &f2) const;
+
+    friend bool operator<(const Fracao &fe, const Fracao &fd);
+    friend Fracao operator*(int num, const Fracao &o1);
+    friend ostream &operator<<(ostream &output, const Fracao &fracao);
+    friend istream &operator>>(istream &input, Fracao &fracao);
 
 private:
     int num;
     int den;
+    int Mmc(int a, int b) const;
 };
 
-/*Fracao Fracao::operator++(Fracao &f, int)
+Fracao::Fracao()
 {
-    Fracao temp(f);
-    f.num += f.den;
-    return temp;
-}
-*/
-Fracao Fracao::operator++(int)
-{
-    Fracao temp(*this);
-    num += den;
-    return temp;
+    SetNum(0);
+    SetDen(1);
 }
 
-/*
-
-Fracao& Fracao::operator++(fracao& f){
-    f.num += f.den;
-    return f;
+Fracao::Fracao(int n, int d)
+{
+    SetNum(n);
+    SetDen(d);
 }
 
-*/
-
-Fracao &Fracao::operator++()
+Fracao::Fracao(int n)
 {
-    num += den;
-    return *this;
+    SetNum(n);
+    SetDen(1);
 }
 
 void Fracao::SetNum(int n)
@@ -97,69 +77,83 @@ int Fracao::GetDen() const
     return den;
 }
 
-void Fracao::Mostrar()
+void Fracao::Mostrar() const
 {
     cout << GetNum() << "/" << GetDen() << endl;
 }
 
-Fracao operator+(Fracao f1) 
-{  
-    f1.den = this->den * f1.den;
-    f1.num = this->num * f1.den + this->den * f1.num;
-    return f1;
-}
-
-Fracao operator-(Fracao f1) 
+int Fracao::Mmc(int a, int b) const
 {
-    f1.den = this->den * f1.den;
-    f1.num = this->num * f1.den - this->den * f1.num;
-    return f1;
+    int temp, a_ = a, b_ = b;
+    while (b != 0)
+    {
+        temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return (a_ / a) * b_;
 }
 
-Fracao operator+(int numero) 
+Fracao Fracao::operator+(const Fracao &f2) const
 {
-    Fracao ftemp();
-    ftemp.den = this->den;
-    ftemp.num = numero * ftemp.den + this->num;
-    return ftemp;
+    int novo_den = Mmc(this->den, f2.den);
+    int novo_num = (this->num * (novo_den / this->den)) + (f2.num * (novo_den / f2.den));
+    return Fracao(novo_num, novo_den);
 }
 
-Fracao operator-(int numero) 
+Fracao Fracao::operator-(const Fracao &f2) const
 {
-    Fracao ftemp();
-    ftemp.den = this->den;
-    ftemp.num = numero * ftemp.den + this->num;
-    return ftemp;
+    int novo_den = Mmc(this->den, f2.den);
+    int novo_num = (this->num * (novo_den / this->den)) - (f2.num * (novo_den / f2.den));
+    return Fracao(novo_num, novo_den);
 }
 
-Fracao Fracao::Mult(Fracao f2) const
+Fracao Fracao::operator*(const Fracao &f2) const
 {
     return Fracao(this->GetNum() * f2.GetNum(), this->GetDen() * f2.GetDen());
 }
 
-Fracao operator*(Fracao o1, Fracao o2)
+Fracao Fracao::operator+(int numero) const
 {
-    return Fracao(o1.GetNum() * o2.GetNum(), o1.GetDen() * o2.GetDen());
+    return *this + Fracao(numero);
 }
 
-/*Fracao operator*(Fracao o1, int num)
+Fracao Fracao::operator-(int numero) const
 {
-    return Fracao(o1.GetNum() * num, o1.GetDen());
-}*/
-
-Fracao operator*(int num, Fracao o1)
-{
-    return o1 * num;
+    return *this - Fracao(numero);
 }
 
-bool Fracao::operator>(Fracao f2) const
+Fracao Fracao::operator*(int num) const
+{
+    return Fracao(GetNum() * num, GetDen());
+}
+
+Fracao &Fracao::operator++()
+{
+    num += den;
+    return *this;
+}
+
+Fracao Fracao::operator++(int)
+{
+    Fracao temp(*this);
+    num += den;
+    return temp;
+}
+
+bool Fracao::operator>(const Fracao &f2) const
 {
     return (this->GetNum() * f2.GetDen()) > (this->GetDen() * f2.GetNum());
 }
 
-bool operator<(Fracao fe, Fracao fd)
+bool operator<(const Fracao &fe, const Fracao &fd)
 {
     return (fe.GetNum() * fd.GetDen()) < (fe.GetDen() * fd.GetNum());
+}
+
+Fracao operator*(int num, const Fracao &o1)
+{
+    return o1 * num;
 }
 
 ostream &operator<<(ostream &output, const Fracao &fracao)
@@ -167,14 +161,16 @@ ostream &operator<<(ostream &output, const Fracao &fracao)
     output << fracao.GetNum() << "/" << fracao.GetDen();
     return output;
 }
+
 istream &operator>>(istream &input, Fracao &fracao)
 {
-    int num;
+    int num, den;
+    cout << "Numerador: ";
     input >> num;
-    fracao.SetNum(num);
-    input.ignore();
-    int den;
+    cout << "Denominador: ";
     input >> den;
+
+    fracao.SetNum(num);
     fracao.SetDen(den);
 
     return input;
@@ -182,23 +178,58 @@ istream &operator>>(istream &input, Fracao &fracao)
 
 int main()
 {
-    Fracao f1(1, 4), f2(1, 2);
+    Fracao f_a(1, 4), f_b(1, 2);
+    Fracao f_c(3);
+    Fracao f_d;
 
-    cout << "f1: ";
-    f1.Mostrar();
+    cout << f_a << endl;
+    cout << f_b << endl;
+    cout << f_c << endl;
+    cout << f_d << endl;
+    cout << endl;
 
-    cout << "f2: ";
-    f2.Mostrar();
+    Fracao soma = f_a + f_b;
+    cout << soma << endl;
 
-    if (f1 > f2)
-        cout << "F1 eh maior que F2" << endl;
-    else
-        cout << "F2 eh maior que F1" << endl;
+    Fracao sub = f_b - f_a;
+    cout << sub << endl;
 
-    cout << f1 << endl;
+    Fracao mult = f_a * f_b;
+    cout << mult << endl;
+    cout << endl;
 
-    cin >> f2;
+    int k = 2;
 
-    f2.Mostrar();
+    Fracao soma_int = f_a + k;
+    cout << soma_int << endl;
+
+    Fracao mult_int_esq = k * f_a;
+    cout << mult_int_esq << endl;
+
+    Fracao mult_int_dir = f_b * 3;
+    cout << mult_int_dir << endl;
+    cout << endl;
+
+    Fracao f_maior(3, 5);
+    Fracao f_menor(1, 2);
+
+    cout << (f_maior > f_menor ? "Verdadeiro" : "Falso") << endl;
+    cout << (f_menor < f_maior ? "Verdadeiro" : "Falso") << endl;
+    cout << endl;
+
+    Fracao f_inc(5, 4);
+
+    Fracao pre_inc = ++f_inc;
+    cout << f_inc << endl;
+
+    Fracao pos_inc = f_inc++;
+    cout << f_inc << endl;
+    cout << pos_inc << endl;
+    cout << endl;
+
+    Fracao f_io;
+    cin >> f_io;
+    cout << f_io << endl;
+
     return 0;
 }
