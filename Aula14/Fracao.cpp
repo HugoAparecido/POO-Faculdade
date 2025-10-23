@@ -16,16 +16,16 @@ public:
 
     void Mostrar() const;
 
-    Fracao operator+(const Fracao &f2) const;
-    Fracao operator-(const Fracao &f2) const;
-    Fracao operator+(int num) const;
-    Fracao operator-(int num) const;
-    friend Fracao operator+(int num, const Fracao &o1);
-    friend Fracao operator-(int num, const Fracao &o1);
+    const Fracao operator+(const Fracao &f2) const;
+    const Fracao operator-(const Fracao &f2) const;
+    const Fracao operator+(int num) const;
+    const Fracao operator-(int num) const;
+    friend const Fracao operator+(int num, const Fracao &o1);
+    friend const Fracao operator-(int num, const Fracao &o1);
 
-    Fracao operator*(const Fracao &f2) const;
-    Fracao operator*(int num) const;
-    friend Fracao operator*(int num, const Fracao &o1);
+    const Fracao operator*(const Fracao &f2) const;
+    const Fracao operator*(int num) const;
+    friend const Fracao operator*(int num, const Fracao &o1);
 
     Fracao operator++(int);
     Fracao &operator++();
@@ -121,36 +121,36 @@ int Fracao::Mmc(int a, int b) const
     return (a_ / a) * b_;
 }
 
-Fracao Fracao::operator+(const Fracao &f2) const
+const Fracao Fracao::operator+(const Fracao &f2) const
 {
     int novo_den = Mmc(this->den, f2.den);
     int novo_num = (this->num * (novo_den / this->den)) + (f2.num * (novo_den / f2.den));
     return Fracao(novo_num, novo_den);
 }
 
-Fracao Fracao::operator-(const Fracao &f2) const
+const Fracao Fracao::operator-(const Fracao &f2) const
 {
     int novo_den = Mmc(this->den, f2.den);
     int novo_num = (this->num * (novo_den / this->den)) - (f2.num * (novo_den / f2.den));
     return Fracao(novo_num, novo_den);
 }
 
-Fracao Fracao::operator*(const Fracao &f2) const
+const Fracao Fracao::operator*(const Fracao &f2) const
 {
     return Fracao(this->GetNum() * f2.GetNum(), this->GetDen() * f2.GetDen());
 }
 
-Fracao Fracao::operator+(int numero) const
+const Fracao Fracao::operator+(int numero) const
 {
     return *this + Fracao(numero);
 }
 
-Fracao Fracao::operator-(int numero) const
+const Fracao Fracao::operator-(int numero) const
 {
     return *this - Fracao(numero);
 }
 
-Fracao Fracao::operator*(int num) const
+const Fracao Fracao::operator*(int num) const
 {
     return Fracao(GetNum() * num, GetDen());
 }
@@ -181,17 +181,17 @@ Fracao &Fracao::operator--()
     return *this;
 }
 
-Fracao operator+(int num, const Fracao &o1)
+const Fracao operator+(int num, const Fracao &o1)
 {
     return o1 + num;
 }
 
-Fracao operator-(int num, const Fracao &o1)
+const Fracao operator-(int num, const Fracao &o1)
 {
     return Fracao(num) - o1;
 }
 
-Fracao operator*(int num, const Fracao &o1)
+const Fracao operator*(int num, const Fracao &o1)
 {
     return o1 * num;
 }
