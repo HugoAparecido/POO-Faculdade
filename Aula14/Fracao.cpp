@@ -1,4 +1,4 @@
-// Gustavo 845572
+// Gustavo Amadeu Mancuzo de Sylos 845572
 // Hugo Aparecido Gregorio de almeida 844917
 #include <iostream>
 
@@ -29,10 +29,10 @@ public:
     const Fracao operator*(int num) const;
     friend const Fracao operator*(int num, const Fracao &o1);
 
-    Fracao operator++(int);
+    const Fracao operator++(int);
     Fracao &operator++();
 
-    Fracao operator--(int);
+    const Fracao operator--(int);
     Fracao &operator--();
 
     bool operator>(const Fracao &f2) const;
@@ -163,14 +163,14 @@ Fracao &Fracao::operator++()
     return *this;
 }
 
-Fracao Fracao::operator++(int)
+const Fracao Fracao::operator++(int)
 {
     Fracao temp(*this);
     num += den;
     return temp;
 }
 
-Fracao Fracao::operator--(int)
+const Fracao Fracao::operator--(int)
 {
     Fracao temp(*this);
     num -= den;
