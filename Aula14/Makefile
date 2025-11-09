@@ -1,7 +1,7 @@
 CC = g++
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -static
 CPP_SRCS = Fracao.cpp
-CPP_EXE = pedido # New executable name
+CPP_EXE = fracao # New executable name
 
 # Alvo padrão
 all: run_cpp
