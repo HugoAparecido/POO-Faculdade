@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Complexo.h"
+#include "VetorComplexo.h"
 
 int main()
 {
@@ -120,6 +121,27 @@ int main()
     std::cout << "c1 apos c1--:       ";
     c1.Imprimir();
     std::cout << std::endl; // Esperado: 14 + 5i (valor novo)
+
+    std::cout << "\n--- Testando Operadores de Comparação (--) ---" << std::endl;
+
+    std::cin >> c1;
+    if (c1 == c2)
+        std::cout << c1 << " igual a " << c2 << std::endl;
+    if (c1 != c2)
+        std::cout << c1 << " diferente a " << c2 << std::endl;
+
+    std::cout << "\n--- Testando Operadores para vetor (--) ---" << std::endl;
+    VetorComplexo v1(3);
+    v1.SetComplexo(c1, 0);
+    std::cout << v1[0];
+    VetorComplexo v2(v1);
+    v2.SetComplexo(c2, 1);
+    VetorComplexo v3(3);
+    v3 = v2;
+    v3.SetComplexo(c3, 2);
+    std::cout << v3.GetTamanhoAtual();
+    for (int i = 0; i < v3.GetTamanhoAtual(); i++)
+        std::cout << v3[i] << std::endl;
 
     return 0;
 }

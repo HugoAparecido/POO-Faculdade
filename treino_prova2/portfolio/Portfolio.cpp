@@ -10,24 +10,19 @@ Portfolio::Portfolio(const Investidor &dono, int capacidade) : donoDoPortfolio(n
     numAtivos = 0;
 }
 
-Portfolio::Portfolio(const Portfolio &outro)
+Portfolio::Portfolio(const Portfolio &outro) : capacidadeMaxima(outro.capacidadeMaxima), numAtivos(outro.numAtivos), donoDoPortfolio(nullptr), listaDeAtivos(nullptr)
 {
-    capacidadeMaxima = outro.GetCapacidadeMaxima();
-    numAtivos = 0; // BUG: Deveria ser outro.numAtivos
-
     if (outro.donoDoPortfolio)
-        donoDoPortfolio = new Investidor(*(outro.donoDoPortfolio)); // Bug de Slicing
+        donoDoPortfolio = new Investidor(*(outro.donoDoPortfolio));
     else
         donoDoPortfolio = nullptr;
-
     if (capacidadeMaxima > 0 && outro.listaDeAtivos)
     {
         listaDeAtivos = new Ativo[capacidadeMaxima];
-        // BUG: Não copia os ativos de 'outro.listaDeAtivos'
-    }
-    else
-    {
-        listaDeAtivos = nullptr;
+        for (int i = 0; i < numAtivos; i++)
+        {
+            listaDeAtivos[i] = outro.listaDeAtivos[i];
+        }
     }
 }
 

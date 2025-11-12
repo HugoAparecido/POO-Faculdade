@@ -33,7 +33,7 @@ void Complexo::Somar(double r)
     this->real += r;
 }
 
-void Complexo::Imprimir()
+void Complexo::Imprimir() const
 {
     std::cout << GetReal() << " " << (imag >= 0 ? "+" : "-") << " " << (GetImag() >= 0 ? imag : (imag * (-1))) << "i";
 }
@@ -86,4 +86,32 @@ const Complexo Complexo::operator*(const Complexo &outro) const
     temp.Set(parteReal, parteImag);
 
     return temp;
+}
+
+bool Complexo::operator==(const Complexo &outro) const
+{
+    return (this->GetReal() == outro.GetReal() && this->GetImag() == outro.GetImag());
+}
+
+bool Complexo::operator!=(const Complexo &outro) const
+{
+    return !(*this == outro);
+}
+
+std::ostream &operator<<(std::ostream &os, const Complexo &c)
+{
+    c.Imprimir();
+    return os;
+}
+
+std::istream &operator>>(std::istream &is, Complexo &c)
+{
+    std::cout << "Valor real:";
+    double real;
+    std::cin >> real;
+    std::cout << "Valor imaginario:";
+    double imag;
+    std::cin >> imag;
+    c.Set(real, imag);
+    return is;
 }

@@ -4,7 +4,7 @@ CC = g++
 CFLAGS = -Wall -g -static
 
 # Lista TODOS os arquivos .cpp do projeto
-SRCS = Complexo.cpp main.cpp
+SRCS = Complexo.cpp VetorComplexo.cpp main.cpp
 # O nome do programa executável final
 EXE = figuras
 
