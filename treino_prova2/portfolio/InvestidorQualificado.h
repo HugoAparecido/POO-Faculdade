@@ -9,7 +9,7 @@ private:
     std::string certificacao;
 
 public:
-    InvestidorQualificado(std::string certificacao = "", std::string nome, std::string cpf);
+    InvestidorQualificado(std::string certificacao = "", std::string nome = "", std::string cpf = "");
     void ExibirInfo() const;
 };
 

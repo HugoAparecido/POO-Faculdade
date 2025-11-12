@@ -15,6 +15,7 @@ private:
 
 public:
     Portfolio(const Investidor &dono, int capacidade);
+    Portfolio(const Portfolio &outro);
     int GetNumAtivos() const;
     int GetCapacidadeMaxima() const;
     const Portfolio &operator=(const Portfolio &outro);

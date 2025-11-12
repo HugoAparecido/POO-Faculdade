@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Investidor::Investidor(std::string nome = "", std::string cpf = "")
+Investidor::Investidor(std::string nome, std::string cpf)
 {
     this->nome = nome;
     this->cpf = cpf;

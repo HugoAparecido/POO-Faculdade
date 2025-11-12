@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-InvestidorQualificado::InvestidorQualificado(std::string certificacao, std::string nome = "", std::string cpf = "") : Investidor(nome, cpf)
+InvestidorQualificado::InvestidorQualificado(std::string certificacao, std::string nome, std::string cpf) : Investidor(nome, cpf)
 {
     this->certificacao = certificacao;
 }
