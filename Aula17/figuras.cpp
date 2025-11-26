@@ -1,3 +1,6 @@
+// Gustavo Amadeu Mancuzo de Sylos 845572
+// Hugo Aparecido Gregorio de almeida 844917
+
 #include <iostream>
 #include <string>
 #include <vector>
