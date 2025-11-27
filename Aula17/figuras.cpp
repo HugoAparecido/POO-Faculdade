@@ -41,34 +41,6 @@ void printMatriz(const string (&matriz)[R][C])
     cout << "\n <======================>\n\n";
 };
 
-#define ROW 5
-#define COL 9
-
-template <size_t R, size_t C> // necessário para manipular matrizes
-// printa no terminal a matriz
-void printMatrix(const string (&matrix)[R][C])
-{
-    cout << "   ";
-    for (size_t i = 0; i < C; i++)
-    {
-        cout << " " << i << " ";
-    }
-
-    cout << "\n";
-
-    for (size_t i = 0; i < R; i++)
-    {
-        cout << " " << i << " ";
-        for (size_t j = 0; j < C; j++)
-        {
-            cout << "[" << matrix[i][j] << "]";
-        }
-        cout << "\n";
-    }
-
-    cout << "\n <======================>\n\n";
-};
-
 class Figura
 {
 public:
@@ -321,37 +293,36 @@ int main()
             map[i][j] = " ";
         }
     }
-}
 
-// alocação de memória e criação do vetor de figuras
-vector<Figura *> vetor_figuras;
-vetor_figuras.push_back(new Circulo(1));
-vetor_figuras.push_back(new Quadrado(1));
-vetor_figuras.push_back(new Triangulo(1, 1));
-vetor_figuras.push_back(new Estrela());
+    // alocação de memória e criação do vetor de figuras
+    vector<Figura *> vetor_figuras;
+    vetor_figuras.push_back(new Circulo(1));
+    vetor_figuras.push_back(new Quadrado(1));
+    vetor_figuras.push_back(new Triangulo(1, 1));
+    vetor_figuras.push_back(new Estrela());
 
-for (int k = 0; k < 10; k++) // mudei indice do loop externo para k
-{
-    // CORREÇÃO AQUI: loop interno corrigido (era i++, agora é j++)
-    for (int i = 0; i < ROW; i++)
-        for (int j = 0; j < COL; j++)
-            map[i][j] = " ";
+    for (int k = 0; k < 10; k++) // mudei indice do loop externo para k
+    {
+        // CORREÇÃO AQUI: loop interno corrigido (era i++, agora é j++)
+        for (int i = 0; i < ROW; i++)
+            for (int j = 0; j < COL; j++)
+                map[i][j] = " ";
 
-    // atualiza as posições randomicamente
-    for (Figura *fig : vetor_figuras)
-        fig->SetPosicao(random_posicao_X(), random_posicao_Y());
+        // atualiza as posições randomicamente
+        for (Figura *fig : vetor_figuras)
+            fig->SetPosicao(random_posicao_X(), random_posicao_Y());
 
-    // limpa o terminal e desenha as figuras
-    DisplayRefresh(vetor_figuras, map);
+        // limpa o terminal e desenha as figuras
+        DisplayRefresh(vetor_figuras, map);
 
-    // aguarda 2 segundos antes de repetir o processo
-    this_thread::sleep_for(chrono::seconds(2));
-}
+        // aguarda 2 segundos antes de repetir o processo
+        this_thread::sleep_for(chrono::seconds(2));
+    }
 
-for (auto f : vetor_figuras)
-    delete f;
+    for (auto f : vetor_figuras)
+        delete f;
 
-cout << "Fim dos desenhos" << endl;
+    cout << "Fim dos desenhos" << endl;
 
-return 0;
+    return 0;
 }
