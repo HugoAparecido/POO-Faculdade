@@ -10,6 +10,7 @@
 #include <chrono>
 #include <thread>
 #include <random>
+#include <cstdlib>
 
 using namespace std;
 
@@ -252,8 +253,12 @@ private:
 
 void DisplayRefresh(const vector<Figura *> &vetor_fig, string (&matriz)[ROW][COL])
 {
-    // apaga todo o terminal
-    cout << "\033[2J\033[1;1H";
+// apaga todo o terminal
+#ifdef _WIN32
+    system("cls"); // se windows
+#else
+    system("clear"); // se linux ou outro SO
+#endif
 
     for (Figura *fig : vetor_fig)
     {
