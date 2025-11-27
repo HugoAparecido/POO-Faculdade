@@ -1,15 +1,45 @@
+// Arthur Henrique Braz 832132
 // Gustavo Amadeu Mancuzo de Sylos 845572
+// Gustavo Gomes Nielsen, 847560
 // Hugo Aparecido Gregorio de almeida 844917
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <cmath>
+#include <chrono>
+#include <thread>
+#include <random>
 
 using std::cout;
 using std::endl;
 using std::string;
 using std::to_string;
+
+#define ROW 5
+#define COL 9
+
+template <size_t R, size_t C> // necessário para manipular matrizes
+// printa no terminal a matriz
+void printMatrix(const string (&matrix)[R][C]){ 
+    cout << "   ";
+    for (size_t i = 0; i < C; i++){
+        cout << " "<< i << " ";
+    }
+
+    cout << "\n";
+
+    for (size_t i = 0; i < R; i++){
+        cout << " "<< i << " ";
+        for (size_t j = 0; j < C; j++){
+            cout << "[" << matrix[i][j] << "]";
+        }
+        cout << "\n";
+    }
+
+    cout << "\n <======================>\n\n";
+};
+
 
 class Figura
 {
@@ -180,26 +210,48 @@ private:
     int altura;
 };
 
-int main()
-{
-    std::vector<Figura *> figuras;
+void DisplayRefresh(const vector<Figura*> &vetor_fig) {
+    // apaga todo o terminal
+    cout << "\033[2J\033[1;1H";
 
-    figuras.push_back(new Circulo(10, 20, 5));
-    figuras.push_back(new Quadrado(5, 5, 10));
-    figuras.push_back(new Triangulo(0, 0, 8, 4));
-
-    cout << "--- Renderizando Figuras ---" << endl;
-
-    for (Figura *fig : figuras)
-    {
+    for (Figura* fig : vetor_fig) {
         fig->Desenha();
     }
+}
 
-    for (Figura *fig : figuras)
-    {
-        delete fig;
+int random_posicao_X(){
+    // motor de geração de números aleatórios cuja seed é o tempo
+    static mt19937 rng(chrono::system_clock::now().time_since_epoch().count());
+    uniform_int_distribution<int> dist(-25, 25); // intervalo
+    return dist(rng);
+}
+int random_posicao_Y(){
+    // motor de geração de números aleatórios cuja seed é o tempo
+    static mt19937 rng(chrono::system_clock::now().time_since_epoch().count());
+    uniform_int_distribution<int> dist(-25, 25); // intervalo
+    return dist(rng);
+}
+
+int main() {
+    // alocação de memória e criação do vetor de figuras
+    vector<Figura*> vetor_figuras;
+    vetor_figuras.push_back(new circulo());
+    vetor_figuras.push_back(new quadrado());
+    vetor_figuras.push_back(new triangulo());
+    vetor_figuras.push_back(new estrela());
+
+    while (true) {
+        // atualiza as posições randomicamente
+        for (Figura* fig : vetor_figuras) {
+            fig->SetPosicao(random_posicao_X(),random_posicao_Y());
+        }
+        
+        // limpa o terminal e desenha as figuras
+        DisplayRefresh(vetor_figuras, vetor_figuras.size());
+
+        // aguarda 5 segundos antes de repetir o processo
+        this_thread::sleep_for(chrono::seconds(5));
     }
-    figuras.clear();
 
     return 0;
 }
