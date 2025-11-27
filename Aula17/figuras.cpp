@@ -82,7 +82,7 @@ protected:
 };
 
 // ============================================================================
-// COMO ADICIONAR UMA NOVA FIGURA (Atualizado)
+// COMO ADICIONAR UMA NOVA FIGURA
 // ============================================================================
 /*
     Para criar um novo tipo de figura (ex: Hexagono, Elipse), siga este modelo:
@@ -98,7 +98,7 @@ protected:
             this->atributo = atributo; // Configura o específico
         }
 
-    4. Implemente o método Desenha obrigatoriamente (assinatura exata):
+    4. Implemente os métodos abaixo obrigatoriamente (assinatura exata):
         void Desenha(string (&matriz)[ROW][COL]) const override {
              // Apenas atualiza a matriz, não chame printMatriz aqui
              matriz[GetX()][GetY()] = "X";
@@ -131,7 +131,7 @@ protected:
         }
 
         double GetArea() const override { return (d1 * d2) / 2.0; }
-        double GetPerimetro() const override { return 4.0 * sqrt(pow(d1/2.0, 2) + pow(d2/2.0, 2)); } // Simplificado
+        double GetPerimetro() const override { return 4.0 * sqrt(pow(d1/2.0, 2) + pow(d2/2.0, 2)); }
 
     private:
         int d1, d2;
@@ -150,7 +150,6 @@ public:
     void Desenha(string (&matriz)[ROW][COL]) const override
     {
         matriz[GetX()][GetY()] = "*";
-        // printMatriz removido daqui para evitar duplicação no display
     }
 
     double GetArea() const override
@@ -301,9 +300,8 @@ int main()
     vetor_figuras.push_back(new Triangulo(1, 1));
     vetor_figuras.push_back(new Estrela());
 
-    for (int k = 0; k < 10; k++) // mudei indice do loop externo para k
+    for (int k = 0; k < 10; k++)
     {
-        // CORREÇÃO AQUI: loop interno corrigido (era i++, agora é j++)
         for (int i = 0; i < ROW; i++)
             for (int j = 0; j < COL; j++)
                 map[i][j] = " ";
