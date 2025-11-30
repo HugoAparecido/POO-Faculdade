@@ -11,7 +11,11 @@ protected:
 
 public:
     virtual void Reproduzir() const = 0;
-    ~Midia() {};
+    int GetDuracao()
+    {
+        return duracao;
+    };
+    virtual ~Midia() {};
 };
 
 #endif

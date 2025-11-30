@@ -1,7 +1,7 @@
 #include "Filme.h"
 #include <iostream>
 
-Filme::Filme(std::string titulo, int duracao, std::string resolucao = "SD")
+Filme::Filme(std::string titulo, int duracao, std::string resolucao)
 {
     this->titulo = titulo;
     this->duracao = (duracao > 0) ? duracao : 0;

@@ -1,7 +1,7 @@
 #include "Podcast.h"
 #include <iostream>
 
-Podcast::Podcast(std::string titulo, int duracao, std::string nomeHost = "desconhecido")
+Podcast::Podcast(std::string titulo, int duracao, std::string nomeHost)
 {
     this->titulo = titulo;
     this->duracao = (duracao > 0) ? duracao : 0;

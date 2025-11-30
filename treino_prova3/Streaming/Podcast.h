@@ -10,7 +10,7 @@ private:
 
 public:
     Podcast(std::string titulo, int duracao, std::string nomeHost = "desconhecido");
-    void Reproduzir() const;
+    void Reproduzir() const override;
 };
 
 #endif

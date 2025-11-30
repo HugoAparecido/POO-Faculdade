@@ -10,7 +10,7 @@ private:
 
 public:
     Filme(std::string titulo, int duracao, std::string resolucao = "SD");
-    void Reproduzir() const;
+    void Reproduzir() const override;
 };
 
 #endif

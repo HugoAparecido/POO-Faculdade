@@ -4,7 +4,7 @@ CC = g++
 CFLAGS = -Wall -g -static
 
 # Lista TODOS os arquivos .cpp do projeto
-SRCS = main.cpp PluginCalculo.cpp  PluginLog.cpp
+SRCS = main.cpp Filme.cpp Podcast.cpp
 # O nome do programa executável final
 EXE = gerenciamento
 
